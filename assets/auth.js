@@ -9,13 +9,21 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11
 // IMPORTANT: DO NOT modify these lines. They are automatically injected.
 
 //const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-const firebaseConfig = {
+/*const firebaseConfig = {
   apiKey: "%%FIREBASE_API_KEY%%",
   authDomain: "%%FIREBASE_AUTH_DOMAIN%%",
   projectId: "%%FIREBASE_PROJECT_ID%%",
   storageBucket: "%%FIREBASE_STORAGE_BUCKET%%",
   messagingSenderId: "%%FIREBASE_MESSAGING_SENDER_ID%%",
   appId: "%%FIREBASE_APP_ID%%"
+};*/
+const firebaseConfig = {
+  apiKey: "AIzaSyCeS4fO_tBayetpF65PEB_j3qzW9wBwv6c",
+  authDomain: "personal-habit-tracker-b55e5.firebaseapp.com",
+  projectId: "personal-habit-tracker-b55e5",
+  storageBucket: "personal-habit-tracker-b55e5.firebasestorage.app",
+  messagingSenderId: "741862961819",
+  appId: "1:741862961819:web:306175ecbecc9912048c3e"
 };
 let app, auth, db;
 // Add this global flag
