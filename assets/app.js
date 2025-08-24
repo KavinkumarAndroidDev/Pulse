@@ -901,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for the "Go to Dashboard" button
     ctaGoToDashboardBtn.addEventListener('click', () => {
-        switchTab('dashboard');
+        setActiveTab('dashboard');
     });
 
     // Event listeners for your sidebar navigation items
