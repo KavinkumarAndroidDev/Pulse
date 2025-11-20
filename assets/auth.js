@@ -17,6 +17,7 @@ const firebaseConfig = {
   messagingSenderId: "%%FIREBASE_MESSAGING_SENDER_ID%%",
   appId: "%%FIREBASE_APP_ID%%"
 };
+
 let app, auth, db;
 // Add this global flag
 let isRegistering = false;

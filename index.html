@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/theme.js"></script>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#FAFBFC">
 </head>
 <body class="font-inter antialiased">
@@ -484,6 +485,31 @@
                             </button>
                         </div>
                     </div>
+                    <div class="card mt-8">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-secondary-light rounded-xl flex items-center justify-center mr-4">
+                                <i data-lucide="bell" class="w-6 h-6 text-secondary"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Daily Reminders</h3>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-8">Enable daily notifications to remind you to complete your journal entry.</p>
+                        <div class="flex items-center justify-between p-4 bg-bg-tertiary rounded-lg">
+                            <span class="font-semibold text-text-primary">Enable Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notifications-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div id="notification-time-setting" class="hidden mt-6 p-4 bg-bg-tertiary rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <label for="notification-time" class="font-semibold text-text-primary">Reminder Time</label>
+                                <input type="time" id="notification-time" class="w-auto px-3 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary">
+                            </div>
+                            <p id="notification-disclaimer" class="text-xs text-text-muted mt-3"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -491,5 +517,6 @@
 
     <script type="module" src="assets/app.js"></script>
     
+    <script src="assets/notification.js"></script>
 </body>
 </html> 

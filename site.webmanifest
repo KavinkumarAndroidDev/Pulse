@@ -1,0 +1,16 @@
+{
+  "name": "Pulse - Personal Performance & Habit Tracker",
+  "short_name": "Pulse",
+  "description": "Track your daily habits, monitor progress, and build a better version of yourself with Pulse.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#0F172A",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

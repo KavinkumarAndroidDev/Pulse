@@ -771,6 +771,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('weekly-saturday-form-container').classList.add('hidden');
             }
+            // Initialize notification manager for the authenticated user
+            if (window.notificationManager) {
+                window.notificationManager.init();
+            }
+
             setActiveTab('dashboard');
         } else {
             currentUserId = null;
@@ -925,4 +930,3 @@ if (cancelEditBtn) {
         showMessage('message-box-app', 'Edit cancelled.', 'info');
     });
 }
-
