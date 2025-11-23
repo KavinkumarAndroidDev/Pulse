@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse - Secure Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/theme.js"></script>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#FAFBFC">
+</head>
+<body class="antialiased">
+    <div class="auth-theme-toggle-container">
+        <div class="theme-toggle-container"></div>
+    </div>
+
+    <div id="auth-section">
+        <div id="pin-section" class="auth-container" style="max-width: 520px;">
+            <div class="auth-header">
+                <div class="w-20 h-20 rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i id="pin-header-icon" data-lucide="shield-check" class="w-10 h-10 text-white"></i>
+                </div>
+                <h1 id="pin-title">Set Your Security PIN</h1>
+                <p id="pin-subtitle">Create a 6-digit PIN for quick and secure access.</p>
+            </div>
+
+            <div id="message-box-pin" class="message-box" style="display:none"></div>
+
+            <form id="pin-form">
+                <div class="pin-input-single-container" id="pin-input-container">
+                    <input type="password" id="pin-input" maxlength="6" class="pin-input-single" inputmode="numeric" autocomplete="new-password" placeholder="······">
+                </div>
+
+                <div id="pin-confirm-container" class="pin-input-single-container mt-4" style="display: none;">
+                    <input type="password" id="pin-confirm-input" maxlength="6" class="pin-input-single" inputmode="numeric" autocomplete="new-password" placeholder="······">
+                </div>
+
+                <button id="pin-submit" type="submit" class="btn btn-primary w-full mt-8">
+                    <i data-lucide="arrow-right-circle" class="w-5 h-5 mr-3"></i>
+                    <span id="pin-submit-label">Continue</span>
+                </button>
+            </form>
+            <div id="pin-reset-container" class="auth-footer" style="display: none;">
+                <p><a href="#" id="pin-reset-link">Forgot PIN?</a></p>
+            </div>
+            <div class="auth-footer" id="pin-logout-container" style="display: none;">
+                <p>Not you? <a href="#" id="pin-logout-link">Logout</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>lucide.createIcons()</script>
+    <script type="module" src="assets/pin.js"></script>
+</body>
+</html>

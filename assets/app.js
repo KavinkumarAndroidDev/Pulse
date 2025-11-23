@@ -8,7 +8,6 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstati
 
 //const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
 const firebaseConfig = {
   apiKey: "%%FIREBASE_API_KEY%%",
   authDomain: "%%FIREBASE_AUTH_DOMAIN%%",
@@ -254,6 +253,7 @@ function showLogoutConfirmation() {
 async function handleLogout() {
     showLoading();
     try {
+        sessionStorage.removeItem('pin_unlocked'); // Clear PIN session
         await signOut(auth);
         // onAuthStateChanged will handle UI changes
     } catch (error) {
@@ -734,29 +734,33 @@ document.addEventListener('DOMContentLoaded', () => {
         isAuthReady = true;
         if (user) {
             currentUserId = user.uid;
-            await ensureUserProfile(user); // Ensure user profile exists upon login
+            
+            const userDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users`, user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+            const userData = userDocSnap.exists() ? userDocSnap.data() : {};
+
+            // PIN Logic
+            if (userData.hasPinSetup) {
+                if (sessionStorage.getItem('pin_unlocked') !== 'true') {
+                    window.location.href = 'pin.html';
+                    return;
+                }
+            } else {
+                // If user is logged in but hasn't set up a pin, redirect them.
+                window.location.href = 'pin.html';
+                return;
+            }
+
+            // --- Full App Initialization ---
+            await ensureUserProfile(user); 
             
             let displayUsername = "User";
-            try {
-                const userDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users`, currentUserId);
-                const userDocSnap = await getDoc(userDocRef);
-                
-                if (userDocSnap.exists()) {
-                    const userData = userDocSnap.data();
-                    if (userData.username && userData.username.trim()) {
-                        displayUsername = userData.username.trim();
-                    } else if (user.email) {
-                        displayUsername = user.email.split('@')[0];
-                    }
-                } else if (user.email) {
-                    displayUsername = user.email.split('@')[0];
-                }
-            } catch (error) {
-                console.error('Error fetching username:', error);
-                if (user.email) {
-                    displayUsername = user.email.split('@')[0];
-                }
+            if (userData.username && userData.username.trim()) {
+                displayUsername = userData.username.trim();
+            } else if (user.email) {
+                displayUsername = user.email.split('@')[0];
             }
+            
             document.getElementById('current-username').textContent = `Hello, ${displayUsername}!`;
 
             showAuthenticatedApp();
@@ -771,7 +775,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('weekly-saturday-form-container').classList.add('hidden');
             }
-            // Initialize notification manager for the authenticated user
             if (window.notificationManager) {
                 window.notificationManager.init();
             }
@@ -779,11 +782,11 @@ document.addEventListener('DOMContentLoaded', () => {
             setActiveTab('dashboard');
         } else {
             currentUserId = null;
+            sessionStorage.removeItem('pin_unlocked'); // Clear pin session on logout
             showAuthenticationForm();
-            document.getElementById('current-username').textContent = '';
-            // If not logged in, always redirect to login page.
-            // This is crucial since index.html expects an authenticated user.
-            window.location.href = 'login.html';
+            if (window.location.pathname !== '/login.html' && window.location.pathname !== '/signup.html') {
+               window.location.href = 'login.html';
+            }
         }
         hideLoading();
     });

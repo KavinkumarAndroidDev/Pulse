@@ -1852,10 +1852,63 @@ input:checked + .slider:before {
     color: var(--color-warning) !important;
 }
 
-.text-danger {
-    color: var(--color-danger) !important;
-}
-
 .text-success {
     color: var(--color-success) !important;
+}
+
+/* New, Simplified PIN Input Styling */
+.pin-input-single-container {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.pin-input-single {
+    width: 100%;
+    letter-spacing: 1em; /* This is key for the "boxed" look */
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 600;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-border-light);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    caret-color: var(--color-primary);
+    transition: all 0.2s ease-in-out;
+    padding-left: 1em; /* Offset for the letter-spacing */
+}
+
+.pin-input-single:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 0 0 4px var(--color-primary-light);
+}
+
+[data-theme="dark"] .pin-input-single {
+    background-color: var(--color-bg-tertiary);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .pin-input-single:focus {
+    background-color: var(--color-bg-secondary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Responsive adjustments for the single PIN input */
+@media (max-width: 520px) {
+    .pin-input-single {
+        font-size: 1.5rem;
+        letter-spacing: 0.8em;
+        padding-left: 0.8em;
+    }
+}
+
+@media (max-width: 380px) {
+    .pin-input-single {
+        font-size: 1.25rem;
+        letter-spacing: 0.6em;
+        padding-left: 0.6em;
+    }
 }

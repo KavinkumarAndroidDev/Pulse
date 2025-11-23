@@ -1,7 +1,7 @@
 [build]
   # This command chain uses 'sed' to find and replace the placeholders
   # with the actual environment variable values during the build process.
-  # It operates on both 'assets/app.js' and 'assets/auth.js'.
+  # It operates on 'assets/app.js', 'assets/auth.js', and 'assets/pin.js'.
   command = """
   sed -i 's|%%FIREBASE_API_KEY%%|'\"$FIREBASE_API_KEY\"'|g' assets/app.js && \
   sed -i 's|%%FIREBASE_AUTH_DOMAIN%%|'\"$FIREBASE_AUTH_DOMAIN\"'|g' assets/app.js && \
@@ -14,7 +14,13 @@
   sed -i 's|%%FIREBASE_PROJECT_ID%%|'\"$FIREBASE_PROJECT_ID\"'|g' assets/auth.js && \
   sed -i 's|%%FIREBASE_STORAGE_BUCKET%%|'\"$FIREBASE_STORAGE_BUCKET\"'|g' assets/auth.js && \
   sed -i 's|%%FIREBASE_MESSAGING_SENDER_ID%%|'\"$FIREBASE_MESSAGING_SENDER_ID\"'|g' assets/auth.js && \
-  sed -i 's|%%FIREBASE_APP_ID%%|'\"$FIREBASE_APP_ID\"'|g' assets/auth.js
+  sed -i 's|%%FIREBASE_APP_ID%%|'\"$FIREBASE_APP_ID\"'|g' assets/auth.js && \
+  sed -i 's|%%FIREBASE_API_KEY%%|'\"$FIREBASE_API_KEY\"'|g' assets/pin.js && \
+  sed -i 's|%%FIREBASE_AUTH_DOMAIN%%|'\"$FIREBASE_AUTH_DOMAIN\"'|g' assets/pin.js && \
+  sed -i 's|%%FIREBASE_PROJECT_ID%%|'\"$FIREBASE_PROJECT_ID\"'|g' assets/pin.js && \
+  sed -i 's|%%FIREBASE_STORAGE_BUCKET%%|'\"$FIREBASE_STORAGE_BUCKET\"'|g' assets/pin.js && \
+  sed -i 's|%%FIREBASE_MESSAGING_SENDER_ID%%|'\"$FIREBASE_MESSAGING_SENDER_ID\"'|g' assets/pin.js && \
+  sed -i 's|%%FIREBASE_APP_ID%%|'\"$FIREBASE_APP_ID\"'|g' assets/pin.js
   """
   # The directory containing your deployable files (e.g., index.html, assets folder)
   # If your HTML files are in the root and assets is a subdirectory, then '.' is correct.
