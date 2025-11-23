@@ -66,6 +66,7 @@ function clearPinInput(inputId) {
 
 function setPageMode(mode) {
     pageMode = mode;
+    const pinSection = document.getElementById('pin-section');
     const title = document.getElementById('pin-title');
     const subtitle = document.getElementById('pin-subtitle');
     const pinContainer = document.getElementById('pin-input-container');
@@ -113,6 +114,11 @@ function setPageMode(mode) {
         document.getElementById('pin-input').focus();
     }
     lucide.createIcons();
+
+    // Once mode is set, remove the loading class to show the content
+    if (pinSection.classList.contains('loading')) {
+        pinSection.classList.remove('loading');
+    }
 }
 
 async function handlePinSubmit(e) {
