@@ -43,9 +43,10 @@ function setSubmitting(isSubmitting) {
     btn.classList.toggle('opacity-75', isSubmitting);
 }
 
-async function hashPin(pin) {
+async function hashPin(pin, salt) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(pin);
+    // Use a salt (like the user's UID) to make the hash more secure
+    const data = encoder.encode(pin + salt);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
@@ -151,7 +152,8 @@ async function handlePinSubmit(e) {
         if (firstPin !== confirmPin) {
             showMessage('PINs do not match. Please start over.', 'error');
             sessionStorage.removeItem('pin_setup_stage1');
-            setPageMode('setup');
+            setPageMode('setup'); // This already clears the confirm input
+            clearPinInput('pin-input'); // Also clear the first input
             setSubmitting(false);
             return;
         }
@@ -183,7 +185,7 @@ async function handlePinSubmit(e) {
             const userDoc = await getDoc(userDocRef);
             if (userDoc.exists()) {
                 const userData = userDoc.data();
-                const hashedPin = await hashPin(pin);
+                const hashedPin = await hashPin(pin, currentUserId);
                 if (hashedPin === userData.pin) {
                     sessionStorage.setItem('pin_unlocked', 'true');
                     showMessage('PIN accepted! Welcome back.', 'success');
@@ -224,6 +226,16 @@ function handlePinReset(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
     initFirebase();
+
+    // Improve PIN input fields for better UX
+    ['pin-input', 'pin-confirm-input'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.setAttribute('type', 'tel'); // Use 'tel' for numeric keyboard on mobile
+            input.setAttribute('maxlength', '6');
+            input.addEventListener('input', () => { input.value = input.value.replace(/[^0-9]/g, ''); });
+        }
+    });
 
     document.getElementById('pin-form').addEventListener('submit', handlePinSubmit);
     document.getElementById('pin-logout-link').addEventListener('click', handleLogout);
